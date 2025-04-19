@@ -1,5 +1,5 @@
 <?php
-require './LLM.php';
+require __DIR__ . '/LLM.php';
 
 function includes($from) {
     $lines = file($from, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
