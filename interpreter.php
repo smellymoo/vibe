@@ -80,11 +80,9 @@ function compile($file, $included = false) : string {
 
 function run($filename) {
     $php_script = compile($filename);
-
-    //$script_dir  = pathinfo($php_script, PATHINFO_DIRNAME);
-    $script_file = pathinfo($php_script, PATHINFO_FILENAME);
-
-    run_script("./$script_file.php");
+    $script_dir = pathinfo($filename, PATHINFO_DIRNAME);
+    chdir($script_dir);
+    run_script($php_script);
 }
 
 function run_script($filename) {
