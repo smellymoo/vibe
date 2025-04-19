@@ -32,18 +32,17 @@ echo -e "Installing vibe executable..."
 cat > "$BIN_DIR/vibe" <<EOF
 #!/usr/bin/env php
 <?php
-if ($argc < 2) { echo -e "Usage: ${Y}vibe script.vibe${NC}\n"; exit(1); }
-chdir($INSTALL_DIR/vibe);
-require './interpreter.php';
+if (\$argc < 2) { echo "Usage: ${Y}vibe script.vibe${NC}\n"; exit(1); }
+require '$INSTALL_DIR/vibe/interpreter.php';
 EOF
 chmod +x "$BIN_DIR/vibe"
 
 # Copy the interpreter directory to INSTALL_DIR
 echo -e "Installing interpreter library..."
-cp -r "$SCRIPT_DIR" "$INSTALL_DIR"
-cd "$INSTALL_DIR/vibe"
+cp -r "$SCRIPT_DIR" "$INSTALL_DIR/vibe"
 
-./setup.sh
+# run setup
+cd "$INSTALL_DIR/vibe"
+$INSTALL_DIR/vibe/setup.sh
 
 echo -e "Installation complete."
-echo -e "You can now run vibe scripts with: ${Y}vibe script.vibe${NC}"
