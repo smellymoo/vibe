@@ -10,17 +10,23 @@ Make coding fun again. Specially useful for quick throw-away scripts to get sh*t
 
 ```bash
 # install:
-./install.sh
-
-# to uninstall (coward!):
-./install.sh --remove
+sudo ./install.sh
 
 # to try out without installing:
-install with: ./setup.sh
-then run vibe script with: php ./interpreter.php ./examples/run_tests.vibe
+1) run: sudo ./setup.sh
+2) run vibe script with: php ./interpreter.php your_script.vibe
+
+# to uninstall (coward!):
+sudo ./install.sh --remove
+```
+# Usage
+
+```
+# run your vibe script:
+vibe your_script.vibe
 ```
 
-# Usage example:
+# Vibe script example:
 
 ```vibe
 echo "ask a question:" + newline
