@@ -1,5 +1,3 @@
-require "../LLM.php" // provides prompt() and categorise()
-
 system_prompt = "RAW PHP8 OUTPUT ONLY, don't even enclose with ```. The user will tell you what PHP8 script they want you to write."
 
 $n = 1

@@ -30,7 +30,7 @@ sierpinski(iter) {
     echo "Sierpinski2 triangle drawn" + newline
 }
 
-function vicsek(iter) {
+vicsek(iter) {
     svg = svg opening tag to make it 100x100 including xmlns
     svg += "<defs>\n";  // Define reusable elements
 

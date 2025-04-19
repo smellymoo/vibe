@@ -1,5 +1,3 @@
-require "../LLM.php" // provides prompt() and categorise()
-
 echo "ask a question:" + newline
 q = get user input
 

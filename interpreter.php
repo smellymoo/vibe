@@ -7,7 +7,7 @@ function includes($from) {
 
     foreach ($lines as $line) {
         if (str_starts_with(ltrim($line), 'include')) {
-            compile(include_path($line));
+            compile(include_path($line), true);
         }
     }
 }
@@ -50,24 +50,28 @@ function check_hash($php_script, $vibe_script) {
     return hash_file('sha256', $vibe_script) === $hash;
 }
 
-function compile($file) : string {
+function compile($file, $included = false) : string {
     $original_dir  = pathinfo($file, PATHINFO_DIRNAME);
     $base_filename = pathinfo($file, PATHINFO_FILENAME);
-    $php_script  = "$original_dir/.$base_filename.php";
+    $php_file  = "$original_dir/.$base_filename.php";
     $vibe_file = "$base_filename.vibe";
 
-    if (!check_hash($php_script, $file)) {
+    if (!check_hash($php_file, $file)) {
         echo "compiling '$vibe_file'...\n";
         $php_ver = 'PHP' . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;
-        $prompt = "Take the pseudo-code and convert it to $php_ver. RAW OUTPUT ONLY and don't enclose in ``` or output '<?php', don't get creative fixing or adding code that isn't requested. default to snake_case. ob_implicit_flush(true) is needed for output. file will be included so no need to add anything to call functions.";
+        $prompt = "Take the pseudo-code and convert it to $php_ver. RAW OUTPUT ONLY and don't enclose in ``` or output '<?php', don't get creative fixing or adding code that isn't requested. default to snake_case. file will be included so no need to add anything to call functions.";
         $processed = includes_rename(file_get_contents($file));
         $processed = prompt($processed, $prompt);
-        $processed = "<?php\n//HASH=".hash_file('sha256', $file)."\n$processed\n";
-        file_put_contents($php_script, $processed);
+        $script  = "<?php\n";
+        $script .= "//HASH=".hash_file('sha256', $file)."\n";
+        $script .= "ob_implicit_flush(true);";
+        if (!$included) $script .= "require '" . __DIR__ . "/LLM.php'; // provides prompt() and categorise()\n";
+        $script .= "$processed\n";
+        file_put_contents($php_file, $script);
     }
 
     includes($file);
-    return $php_script;
+    return $php_file;
 }
 
 function run($filename) {
@@ -112,9 +116,7 @@ function run_script($filename) {
                 if ($stream === $pipes[2]) {
                     $err = fread($pipes[2], 1024);
                     if ($err !== false || $err !== '') {
-                        $R = "\033[0;31m";
-                        $NC = "\033[0m";
-                        echo "{$R}$err{$NC}";
+                        error_msg($err);
                         $errors .= $err;
                     }
                 }
@@ -140,5 +142,12 @@ function run_script($filename) {
     }
 }
 
-if (isset($argv[1])) run($argv[1]);
+function error_msg(string $err) {
+    echo "\033[0;31m$err\033[0m";
+}
+
+if (isset($argv[1])) {
+    if (!file_exists($argv[1])) { error_msg("error: no script found.\n"); exit; }
+    run($argv[1]);
+}
 ?>
