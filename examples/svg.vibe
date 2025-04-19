@@ -1,0 +1,75 @@
+svg_line() {
+    create an svg file "./svg/line.svg" that is 512x512 containing a red 5px line from top-left to bottom-right
+    echo "line drawn" + newline
+}
+
+sierpinski(iter) {
+    svg = svg opening tag to make it 100x100 including xmlns
+
+    // Define initial triangle
+    svg += "<defs>\n"
+    svg += "<g id='triangle-0'>\n"
+    svg += "<polygon points='10,10 90,10 50,90'/>\n"
+    svg += "</g>\n"
+
+    // Build nested groups
+    for (i = 1 to iter) {
+        svg += "<g id='triangle-"+i+"'>\n"
+        svg += "<use href='#triangle-"+(i-1)+"' transform='translate( 5, 5) scale(0.5)'/>\n" // Top
+        svg += "<use href='#triangle-"+(i-1)+"' transform='translate(45, 5) scale(0.5)'/>\n" // Right
+        svg += "<use href='#triangle-"+(i-1)+"' transform='translate(25,45) scale(0.5)'/>\n" // Bottom
+        svg += "</g>\n"
+    }
+    svg += "</defs>\n"
+
+    // Render the final iteration group
+    svg += "<use href='#triangle-"+iter+"'/>\n"
+    svg += "</svg>"
+
+    write svg to "./svg/triangle.svg"
+    echo "Sierpinski2 triangle drawn" + newline
+}
+
+function vicsek(iter) {
+    svg = svg opening tag to make it 100x100 including xmlns
+    svg += "<defs>\n";  // Define reusable elements
+
+    // base cross
+    svg += "<g id='cross-0' stroke='black' stroke-width='20' stroke-linecap='square'>\n";
+    svg += "<line x1='15' y1='50' x2='85' y2='50'/>\n";
+    svg += "<line x1='50' y1='15' x2='50' y2='85'/>\n";
+    svg += "</g>\n";
+
+    // nested reusable groups
+    for (i = 1 to iter) {
+        svg += "<g id='cross-"+i+"'>\n";
+
+        // Reuse cross x5
+        svg += "<use href='#cross-"+(i-1)+"' transform='translate( 33.3, 33.3)scale(0.333 0.333)'/>\n"; // Center
+        svg += "<use href='#cross-"+(i-1)+"' transform='translate( 33.3,    0)scale(0.333 0.333)'/>\n"; // Top
+        svg += "<use href='#cross-"+(i-1)+"' transform='translate( 33.3, 66.6)scale(0.333 0.333)'/>\n"; // Bottom
+        svg += "<use href='#cross-"+(i-1)+"' transform='translate(    0, 33.3)scale(0.333 0.333)'/>\n"; // Left
+        svg += "<use href='#cross-"+(i-1)+"' transform='translate( 66.6, 33.3)scale(0.333 0.333)'/>\n"; // Right
+        svg += "</g>\n";
+    }
+
+    svg += "</defs>\n";
+    svg += "<use href='#cross-"+iter+"'/>\n";
+
+    svg += close svg tags
+    write svg to "./svg/cross.svg"
+    echo "vicsek cross fractal drawn" + newline
+}
+
+create folder if !exist "./svg"
+
+echo "create svg with line..." + newline
+svg_line()
+
+echo "create svg with sierpinski triangle fractal..." + newline
+sierpinski(6)
+
+echo "create svg with vicsek cross fractal..." + newline
+vicsek(5)
+
+echo "script completed." + newline

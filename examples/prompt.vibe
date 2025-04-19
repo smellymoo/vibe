@@ -1,0 +1,15 @@
+require "../LLM.php" // provides prompt() and categorise()
+
+echo "ask a question:" + newline
+q = get user input
+
+categories = [
+    HAPPY => is happy
+    NEUTRAL => is neutral
+    SAD => is sad
+    RUDE => is rude
+]
+
+q_type = categorise(q, categories);
+echo "question categorised as: $q_type\n";
+echo "LLM response: " + prompt(q) + newline
