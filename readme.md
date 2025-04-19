@@ -1,7 +1,7 @@
 # VIBE 🔥 
 (Very Intelligent; Barely Executable)
 
-For **YOLO-Driven Development**, meet **VIBE** - the scripting language where your code syntax is more of a suggestion than a requirement.
+For **YOLO-Driven Development**, meet **VIBE** - the scripting language where code syntax is more of a suggestion than a requirement.
 Write PHP-ish, Python-y, or just keyboard smash - Vibe will sort it out. Probably.
 
 Make coding fun again. Specially useful for quick throw-away scripts to get sh*t done.
@@ -9,14 +9,16 @@ Make coding fun again. Specially useful for quick throw-away scripts to get sh*t
 # Install
 
 ```bash
-# install / re-install:
-sudo ./install.sh
+# install:
+1) install PHP
+2) run: sudo ./install.sh
 
-# to try out without installing:
-1) run: sudo ./setup.sh
-2) run vibe script with: php ./interpreter.php your_script.vibe
+# try without installing:
+1) install PHP
+2) run: sudo ./setup.sh
+3) run vibe script: php ./interpreter.php your_script.vibe
 
-# to uninstall (coward!):
+# uninstall (coward!):
 sudo ./install.sh --remove
 ```
 # Usage
@@ -26,7 +28,7 @@ sudo ./install.sh --remove
 vibe your_script.vibe
 ```
 
-# Vibe script example:
+# Vibe script example
 
 ```vibe
 echo "ask a question:" + newline
