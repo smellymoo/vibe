@@ -63,7 +63,13 @@ function compile($file, $included = false) : string {
     if (!check_hash($php_file, $file)) {
         echo "compiling '$vibe_file'...\n";
         $php_ver = 'PHP' . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;
-        $prompt = "Take the pseudo-code and convert it to $php_ver. RAW OUTPUT ONLY and don't enclose in ``` or output '<?php', don't get creative fixing or adding code that isn't requested. default to snake_case. file will be included so no need to add anything to call functions.";
+
+        $prompt = "Convert the pseudo-code to $php_ver.\n\n" .
+        "Following these rules:\n" .
+        "1) Output raw PHP only - no enclosing ```, <?php, comments or explanations.\n" .
+        "2) Strict 1:1 translation - no additions/omissions.\n" .
+        "3) Variables always start with $ - no constants unless explicitly defined.";
+
         $processed = includes_rename(file_get_contents($file));
         $processed = prompt($processed, $prompt);
         $script  = "<?php\n";

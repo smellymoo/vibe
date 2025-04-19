@@ -9,7 +9,7 @@ Make coding fun again. Specially useful for quick throw-away scripts to get sh*t
 # Install
 
 ```bash
-# install:
+# install / re-install:
 sudo ./install.sh
 
 # to try out without installing:

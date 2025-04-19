@@ -11,8 +11,14 @@ NC='\033[0m'
 
 # Must be run as root (sudo)
 if [ "$EUID" -ne 0 ]; then
-  echo -e "${R}error:${NC} root needed. try this: ${Y}sudo ./install.sh${NC}"
+  echo -e "${R}Error:${NC} root needed. try this: ${Y}sudo ./install.sh${NC}"
   exit 1
+fi
+
+# Check if PHP is installed
+if ! command -v php &> /dev/null; then
+    echo "${R}Error:${NC} PHP is not installed." >&2
+    exit 1
 fi
 
 # Check each argument for --remove
@@ -45,4 +51,4 @@ cp -r "$SCRIPT_DIR" "$INSTALL_DIR/vibe"
 cd "$INSTALL_DIR/vibe"
 $INSTALL_DIR/vibe/setup.sh
 
-echo -e "Installation complete."
+echo -e "Install complete."

@@ -7,11 +7,11 @@ use OpenAI\Client;
 
 $client = OpenAI::client($api_keys['openai']);
 
-function prompt(string $prompt, ?string $system = '', ?int $tokens = 6000, ?float $temp = 0.3): ?string {
+function prompt(string $prompt, ?string $system = '', ?int $tokens = 20000, ?float $temp = 0.3): ?string {
     global $client;
 
     $result = $client->chat()->create([
-        'model' => 'gpt-4',
+        'model' => 'gpt-4.1-mini',
         'messages' => [
             [ 'role' => 'system', 'content' => $system, ],
             [ 'role' =>  'user',  'content' => $prompt, ],
