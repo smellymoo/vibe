@@ -3,6 +3,8 @@ require __DIR__ . '/LLM.php';
 
 function includes($from) {
     $lines = file($from, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    $working = getcwd();
     chdir(pathinfo($from, PATHINFO_DIRNAME));
 
     foreach ($lines as $line) {
@@ -10,6 +12,8 @@ function includes($from) {
             compile(include_path($line), true);
         }
     }
+
+    chdir($working);
 }
 
 function includes_rename($script) : string {
@@ -75,13 +79,11 @@ function compile($file, $included = false) : string {
 }
 
 function run($filename) {
-    $working = getcwd();
     $php_script = compile($filename);
 
-    $script_dir  = pathinfo($php_script, PATHINFO_DIRNAME);
+    //$script_dir  = pathinfo($php_script, PATHINFO_DIRNAME);
     $script_file = pathinfo($php_script, PATHINFO_FILENAME);
 
-    chdir("$working/$script_dir");
     run_script("./$script_file.php");
 }
 
