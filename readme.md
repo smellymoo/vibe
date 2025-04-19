@@ -8,18 +8,21 @@ Make coding fun again. Specially useful for quick throw-away scripts to get sh*t
 
 # Install
 
-**install:**
+```bash
+# install:
 ./install.sh
 
-**to uninstall (coward!):**
+# to uninstall (coward!):
 ./install.sh --remove
 
-**to try out without installing:**
+# to try out without installing:
 install with: ./setup.sh
 then run vibe script with: php ./interpreter.php ./examples/run_tests.vibe
+```
 
 # Usage example:
 
+```vibe
 echo "ask a question:" + newline
 msg = get user input
 
@@ -36,4 +39,5 @@ switch(mood) {
     case NEUTRAL: print("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
     case SAD: die("Ctrl+Z yourself");
 }
+```
 
