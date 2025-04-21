@@ -3,7 +3,7 @@
 
 Make coding fun again. Fed up with OOP nonsense?
 meet **IOP** - Intention-Oriented Programming™, 
-for when you know what you want to do, write a vague script, and **get sh*t done**.
+for when you know what you want to do, just write a vague script, and **get sh*t done**.
 
 Vibe is for **YOLO-Driven Development**, 
 it has no syntax. Write PHP-ish, Python-y, or whatever `¯\_(ツ)_/¯`
